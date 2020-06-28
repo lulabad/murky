@@ -1,0 +1,53 @@
+.markdown {
+    // margin: 2rem;
+    font-size: 1.4rem;
+    padding: 2rem;
+
+    h1 {
+        border-bottom: 1px solid $color-primary-4;
+        margin-bottom: 1rem;
+        margin-top: 2rem;
+    }
+
+    p,
+    pre {
+        margin: 1rem 0;
+    }
+
+    p code {
+        color: $color-secondary-2-0;
+        font-weight: 900;
+    }
+
+    pre {
+        padding: 1.6rem;
+    }
+
+    pre[class*="language-"] {
+        border-radius: 0;
+        border: none;
+    }
+
+    blockquote {
+        // margin-left: 2rem;
+        background-color: rgba($color-primary-1, 0.5);
+        padding: 0.1rem 1rem;
+        border-left: 1rem solid $color-primary-4;
+    }
+
+    table {
+
+        td,
+        th {
+            padding-left: 1rem;
+        }
+
+        thead tr th {
+            border-bottom: 0.3rem solid $color-primary-4;
+        }
+
+        tbody tr td {
+            border-bottom: 0.1rem solid $color-primary-4;
+        }
+    }
+}

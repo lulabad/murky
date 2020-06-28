@@ -1,0 +1,13 @@
+<div class="edit-container">
+    <h1>
+        Live Edit
+        <button phx-click="save" class="btn">save</button>
+    </h1>
+    <div class="edit-container__edit">
+        <div id="container" class="edit-container__raw_md">
+        
+            <textarea phx-keyup = "update"><%= @raw_md %></textarea>
+        </div>
+        <div class="edit-container__preview markdown"><%= raw(@md) %></div>
+    </div>
+</div>

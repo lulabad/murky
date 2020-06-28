@@ -18,6 +18,8 @@ defmodule MurkyWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+    live "/edit", EditLive
+    live "/view", ViewLive
   end
 
   # Other scopes may use custom stacks.

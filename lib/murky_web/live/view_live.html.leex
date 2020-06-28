@@ -1,0 +1,9 @@
+<div class="markdown_view">
+    <div class="markdown_view__header">
+        <div class="markdown_view__title"><%= @filename %></div>
+        <%= live_redirect "edit", to: Routes.live_path(@socket, MurkyWeb.EditLive, file: @filename), class: "btn"%>
+    </div>
+    <div class="markdown">
+        <%= raw(@md) %>
+    </div>
+</div>
