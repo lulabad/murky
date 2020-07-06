@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 
 module.exports = (env, options) => {
     const devMode = options.mode !== "production";
@@ -45,11 +46,18 @@ module.exports = (env, options) => {
                         "sass-loader",
                     ],
                 },
+                {
+                    test: /\.ttf$/,
+                    use: ["file-loader"],
+                },
             ],
         },
         plugins: [
             new MiniCssExtractPlugin({ filename: "../css/app.css" }),
             new CopyWebpackPlugin([{ from: "static/", to: "../" }]),
+            new MonacoWebpackPlugin({
+                languages: ["markdown"],
+            }),
         ],
     };
 };

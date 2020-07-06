@@ -3,7 +3,7 @@
 // its own CSS file.
 import "../css/app.scss";
 import Prism from "prismjs";
-
+import * as monaco from "monaco-editor";
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
 // in "webpack.config.js".
@@ -17,11 +17,28 @@ import "phoenix_html";
 import { Socket } from "phoenix";
 import NProgress from "nprogress";
 import { LiveSocket } from "phoenix_live_view";
+
+const Hooks = {};
+Hooks.MonacoEditor = {
+    mounted() {
+        this.edit = monaco.editor.create(this.el, {
+            value: this.el.dataset.raw,
+            language: "markdown",
+        });
+        this.edit.getModel().onDidChangeContent((e) =>
+            this.pushEvent("update", {
+                value: this.edit.getModel().getValue(),
+            })
+        );
+    },
+};
+
 let csrfToken = document
     .querySelector("meta[name='csrf-token']")
     .getAttribute("content");
 let liveSocket = new LiveSocket("/live", Socket, {
     params: { _csrf_token: csrfToken },
+    hooks: Hooks,
 });
 
 // Show progress bar on live navigation and form submits
