@@ -1,6 +1,6 @@
 defmodule Murky.Data do
 
-    @path_for_files "C:/Users/alexa/Projekte/murky/wiki"
+    @path_for_files "wiki"
     
     def get_md(file_name) do
         File.read!("wiki/" <> file_name)
