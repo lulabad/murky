@@ -5,6 +5,8 @@
     </h1>
     <div class="edit-container__edit">
         <%= live_component @socket, MurkyWeb.MonacoComponent, id: "monaco", raw_md: @raw_md %>
-        <div class="edit-container__preview markdown"><%= raw(@md) %></div>
+        <div class="edit-container__preview">
+            <%= live_component @socket, MurkyWeb.ViewMarkdown, rendered_markdown: @md  %>
+        </div>
     </div>
 </div>
