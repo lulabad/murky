@@ -1,0 +1,37 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [{
+            "label": "Start Server",
+            "type": "shell",
+            "command": "mix",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": [],
+
+            "args": [
+                "phx.server"
+            ],
+            "options": {
+                "env": {
+                    "STORAGE_PATH": "wiki"
+                }
+            }
+        },
+        {
+            "label": "Build Docker",
+            "type": "shell",
+            "command": "docker-compose",
+            "group": "build",
+            "args": [
+                "-f", "docker-compose.yml", "up", "-d", "--build"
+            ],
+            "problemMatcher": [],
+
+        }
+    ]
+}

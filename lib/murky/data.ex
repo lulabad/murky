@@ -1,21 +1,25 @@
 defmodule Murky.Data do
 
-    @path_for_files "wiki"
-    
     def get_md(file_name) do
         File.read!("wiki/" <> file_name)
         |> Earmark.as_html!(%Earmark.Options{code_class_prefix: "lang- language-"})
     end
 
     def get_files() do
-        File.ls!(@path_for_files)
+        get_storage_path
+        |> File.ls!
+        # File.ls!(get_storage_path())
     end
 
     def create_file(filename) do
-        File.touch!(@path_for_files <> "/" <> filename <> ".md")
+        File.touch!(get_storage_path() <> "/" <> filename <> ".md")
     end
 
     def save_file(filename, content) do
-        File.write!(@path_for_files <> "/" <> filename, content)
+        File.write!(get_storage_path() <> "/" <> filename, content)
+    end
+
+    def get_storage_path() do
+        System.fetch_env!("STORAGE_PATH")
     end
 end
