@@ -6,7 +6,7 @@ defmodule Murky.Data do
     end
 
     def get_files() do
-        get_storage_path
+        get_storage_path()
         |> File.ls!
         # File.ls!(get_storage_path())
     end

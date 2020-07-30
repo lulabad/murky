@@ -32,6 +32,22 @@
             ],
             "problemMatcher": [],
 
+        },
+        {
+            "label": "run tests",
+            "type": "shell",
+            "command": "mix",
+            "group": "test",
+            "args": [
+                "test"
+            ],
+            "problemMatcher": [],
+            "options": {
+                "env": {
+                    "STORAGE_PATH": "test_data"
+                }
+            }
+
         }
     ]
 }
