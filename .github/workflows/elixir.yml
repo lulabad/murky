@@ -29,4 +29,4 @@ jobs:
             - name: Run tests
               run: mix test
               env:
-              STORAGE_PATH: wiki
+                  STORAGE_PATH: wiki
