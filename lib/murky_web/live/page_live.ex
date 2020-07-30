@@ -3,13 +3,13 @@ defmodule MurkyWeb.PageLive do
   use Phoenix.HTML
   alias Murky.Data
 
-
   @impl true
   def mount(_params, _session, socket) do
     list_of_files = Data.get_files()
     {:ok, assign(socket, list_of_files: list_of_files, show_new: false)}
   end
 
+  @impl true
   def handle_event("save", value, socket) do
     Data.create_file(Map.get(value, "filename"))
     list_of_files = Data.get_files()
@@ -23,5 +23,4 @@ defmodule MurkyWeb.PageLive do
   def handle_event("cancel", _value, socket) do
     {:noreply, assign(socket, show_new: false)}
   end
-
 end

@@ -53,4 +53,49 @@ defmodule MurkyWeb.PageLiveTest do
 
     assert_redirect(view, Routes.live_path(conn, MurkyWeb.ViewLive, file: "first_file.md"))
   end
+
+  test "click on add md opens the new dialog", %{conn: conn} do
+    {:ok, view, _disconnected_html} = live(conn, "/")
+
+    assert view
+           |> element("button[phx-click='add_md']")
+           |> render_click()
+           |> Floki.parse_document!()
+           |> Floki.find(".new-file")
+           |> Enum.count() == 1
+  end
+
+  test "click on cancel on new md close the dialog", %{conn: conn} do
+    {:ok, view, _disconnected_html} = live(conn, "/")
+
+    # make sure the dialog is open
+    assert view
+           |> element("button[phx-click='add_md']")
+           |> render_click()
+           |> Floki.parse_document!()
+           |> Floki.find(".new-file")
+           |> Enum.count() == 1
+
+    assert view
+           |> element("button[phx-click='cancel']")
+           |> render_click()
+           |> Floki.parse_document!()
+           |> Floki.find(".new-file")
+           |> Enum.count() == 0
+  end
+
+  test "save new file creates a new file and updates the index page", %{conn: conn} do
+    {:ok, view, _disconnected_html} = live(conn, "/")
+
+    assert view
+           |> element("button[phx-click='add_md']")
+           |> render_click()
+
+    assert view
+           |> element("form")
+           |> render_submit(%{"filename" => "my_new_file"})
+           |> Floki.parse_document!()
+           |> Floki.find(".index-list__item")
+           |> Enum.count() == 1
+  end
 end
