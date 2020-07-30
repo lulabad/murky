@@ -16,28 +16,41 @@ defmodule MurkyWeb.PageLiveTest do
   end
 
   test "make sure index page is shown", %{conn: conn} do
-    {:ok, _page_live, disconnected_html} = live(conn, "/")
+    {:ok, _view, disconnected_html} = live(conn, "/")
 
-    {:ok, document} = Floki.parse_document(disconnected_html)
-
-    index_page_found =
-      document
+    count_index_page =
+      disconnected_html
+      |> Floki.parse_document!()
       |> Floki.find(".index-page")
       |> Enum.count()
 
-    assert index_page_found == 1
+    assert count_index_page == 1
   end
 
   test "existing files are listed in the index page", %{conn: conn} do
     Data.create_file("first_file")
     Data.create_file("second_file")
 
-    {:ok, page_live, _disconnected_html} = live(conn, "/")
-    html = render(page_live)
-    {:ok, document} = Floki.parse_document(html)
+    {:ok, view, _disconnected_html} = live(conn, "/")
 
-    c = document |> Floki.find(".index-list__item") |> Enum.count()
+    count_items =
+      view
+      |> render()
+      |> Floki.parse_document!()
+      |> Floki.find(".index-list__item")
+      |> Enum.count()
 
-    assert c == 2
+    assert count_items == 2
+  end
+
+  test "click on the link redirects to the view", %{conn: conn} do
+    Data.create_file("first_file")
+    {:ok, view, _disconnected_html} = live(conn, "/")
+
+    view
+    |> element(".index-list__item a:first-child()")
+    |> render_click()
+
+    assert_redirect(view, Routes.live_path(conn, MurkyWeb.ViewLive, file: "first_file.md"))
   end
 end
