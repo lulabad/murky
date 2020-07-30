@@ -18,13 +18,10 @@ defmodule MurkyWeb.PageLiveTest do
   test "make sure index page is shown", %{conn: conn} do
     {:ok, _view, disconnected_html} = live(conn, "/")
 
-    count_index_page =
-      disconnected_html
-      |> Floki.parse_document!()
-      |> Floki.find(".index-page")
-      |> Enum.count()
-
-    assert count_index_page == 1
+    assert disconnected_html
+           |> Floki.parse_document!()
+           |> Floki.find(".index-page")
+           |> Enum.count() == 1
   end
 
   test "existing files are listed in the index page", %{conn: conn} do
@@ -33,14 +30,11 @@ defmodule MurkyWeb.PageLiveTest do
 
     {:ok, view, _disconnected_html} = live(conn, "/")
 
-    count_items =
-      view
-      |> render()
-      |> Floki.parse_document!()
-      |> Floki.find(".index-list__item")
-      |> Enum.count()
-
-    assert count_items == 2
+    assert view
+           |> render()
+           |> Floki.parse_document!()
+           |> Floki.find(".index-list__item")
+           |> Enum.count() == 2
   end
 
   test "click on the link redirects to the view", %{conn: conn} do
