@@ -44,7 +44,7 @@
             "problemMatcher": [],
             "options": {
                 "env": {
-                    "STORAGE_PATH": "wiki"
+                    "STORAGE_PATH": "test_data"
                 }
             }
 

@@ -3,8 +3,21 @@ defmodule MurkyWeb.PageLiveTest do
 
   import Phoenix.LiveViewTest
 
+  setup_all do
+    # make shure the STORAGE_PATH exists
+    dir = Murky.Data.get_storage_path()
+    
+    if !File.exists?(dir) do
+      File.mkdir!(dir)
+
+      on_exit fn -> 
+        File.rmdir!(Murky.Data.get_storage_path())
+      end
+    end
+    :ok
+  end
+
   test "make shure index page is shown", %{conn: conn} do
-    # IO.inspect(conn)
     {:ok, _page_live, disconnected_html} = live(conn, "/")
 
     {:ok, document} = Floki.parse_document(disconnected_html)
