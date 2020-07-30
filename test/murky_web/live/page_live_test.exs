@@ -3,9 +3,16 @@ defmodule MurkyWeb.PageLiveTest do
 
   import Phoenix.LiveViewTest
 
-  test "disconnected and connected render", %{conn: conn} do
-    {:ok, page_live, disconnected_html} = live(conn, "/")
-    assert disconnected_html =~ "Welcome to Phoenix!"
-    assert render(page_live) =~ "Welcome to Phoenix!"
+  test "make shure index page is shown", %{conn: conn} do
+    # IO.inspect(conn)
+    {:ok, _page_live, disconnected_html} = live(conn, "/")
+
+    {:ok, document} = Floki.parse_document(disconnected_html)
+    
+    index_page_found = document
+    |> Floki.find(".index-page")
+    |> Enum.count
+
+    assert index_page_found == 1
   end
 end
