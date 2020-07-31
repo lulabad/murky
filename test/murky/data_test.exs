@@ -34,10 +34,15 @@ defmodule Murky.DataTest do
 
   test "save file updates the file content" do
     Data.create_file("file1")
-    assert File.read!(Data.get_storage_path() <> "/" <> "file1.md") == ""
+
+    assert Data.get_storage_path()
+           |> Path.join("file1.md")
+           |> File.read!() == ""
 
     Data.save_file("file1.md", "Homer Simpson")
 
-    assert File.read!(Data.get_storage_path() <> "/" <> "file1.md") == "Homer Simpson"
+    assert Data.get_storage_path()
+           |> Path.join("file1.md")
+           |> File.read!() == "Homer Simpson"
   end
 end
