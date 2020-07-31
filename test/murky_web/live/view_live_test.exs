@@ -14,7 +14,7 @@ defmodule MurkyWeb.ViewLiveTest do
     :ok
   end
 
-  test "make sure the markdwon view page is shown", %{conn: conn} do
+  test "make sure the markdown view page is shown", %{conn: conn} do
     Data.create_file("first_file")
     Data.save_file("first_file.md", "# Das ist ein Titel")
 
