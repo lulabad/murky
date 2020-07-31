@@ -7,8 +7,6 @@ defmodule Murky.Data do
   def get_files() do
     get_storage_path()
     |> File.ls!()
-
-    # File.ls!(get_storage_path())
   end
 
   def create_file(filename) do
