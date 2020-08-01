@@ -45,7 +45,7 @@ defmodule MurkyWeb.PageLiveTest do
     |> element(".index-list__item a:first-child()")
     |> render_click()
 
-    assert_redirect(view, Routes.live_path(conn, MurkyWeb.ViewLive, file: "first_file.md"))
+    assert_redirect(view, Routes.live_path(conn, MurkyWeb.ViewLive, file: "first_file"))
   end
 
   test "click on add md opens the new dialog", %{conn: conn} do

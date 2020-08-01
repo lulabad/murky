@@ -18,7 +18,7 @@ defmodule MurkyWeb.EditLiveTest do
     Data.create_file("first_file")
 
     {:ok, view, _disconnected_html} =
-      live(conn, Routes.live_path(conn, MurkyWeb.EditLive, file: "first_file.md"))
+      live(conn, Routes.live_path(conn, MurkyWeb.EditLive, file: "first_file"))
 
     assert view.module() == MurkyWeb.EditLive
   end
