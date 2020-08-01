@@ -4,8 +4,9 @@ defmodule MurkyWeb.EditLive do
 
   def mount(params, _session, socket) do
     filename = Map.get(params, "file")
-    raw_md = File.read!(Data.get_storage_path() <> "/" <> filename)
-    md = Murky.Data.get_md(filename)
+
+    raw_md = filename |> Data.get_raw_md()
+    md = filename |> Murky.Data.get_md()
 
     socket =
       socket

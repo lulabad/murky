@@ -29,7 +29,7 @@ defmodule Murky.DataTest do
     Data.create_file("file1")
     Data.create_file("file2")
 
-    assert Data.get_files() == ["file1.md", "file2.md"]
+    assert Data.get_files() == ["file1", "file2"]
   end
 
   test "save file updates the file content" do
@@ -39,10 +39,19 @@ defmodule Murky.DataTest do
            |> Path.join("file1.md")
            |> File.read!() == ""
 
-    Data.save_file("file1.md", "Homer Simpson")
+    Data.save_file("file1", "Homer Simpson")
 
     assert Data.get_storage_path()
            |> Path.join("file1.md")
            |> File.read!() == "Homer Simpson"
+  end
+
+  test "get_raw_md returns the corrent file content" do
+    filename = "first"
+    Data.create_file(filename)
+    assert Data.get_raw_md(filename) == ""
+
+    Data.save_file(filename, "Marge Simpson")
+    assert Data.get_raw_md(filename) == "Marge Simpson"
   end
 end

@@ -16,10 +16,10 @@ defmodule MurkyWeb.ViewLiveTest do
 
   test "make sure the markdown view page is shown", %{conn: conn} do
     Data.create_file("first_file")
-    Data.save_file("first_file.md", "# Das ist ein Titel")
+    Data.save_file("first_file", "# Das ist ein Titel")
 
     {:ok, view, _disconnected_html} =
-      live(conn, Routes.live_path(conn, MurkyWeb.ViewLive, file: "first_file.md"))
+      live(conn, Routes.live_path(conn, MurkyWeb.ViewLive, file: "first_file"))
 
     assert view
            |> render()
@@ -30,10 +30,10 @@ defmodule MurkyWeb.ViewLiveTest do
 
   test "shows the content of the file", %{conn: conn} do
     Data.create_file("first_file")
-    Data.save_file("first_file.md", "# Das ist ein Titel")
+    Data.save_file("first_file", "# Das ist ein Titel")
 
     {:ok, view, _disconnected_html} =
-      live(conn, Routes.live_path(conn, MurkyWeb.ViewLive, file: "first_file.md"))
+      live(conn, Routes.live_path(conn, MurkyWeb.ViewLive, file: "first_file"))
 
     assert view
            |> render()
@@ -46,12 +46,12 @@ defmodule MurkyWeb.ViewLiveTest do
     Data.create_file("first_file")
 
     {:ok, view, _disconnected_html} =
-      live(conn, Routes.live_path(conn, MurkyWeb.ViewLive, file: "first_file.md"))
+      live(conn, Routes.live_path(conn, MurkyWeb.ViewLive, file: "first_file"))
 
     view
     |> element(".markdown_view__header a")
     |> render_click()
 
-    assert_redirect(view, Routes.live_path(conn, MurkyWeb.EditLive, file: "first_file.md"))
+    assert_redirect(view, Routes.live_path(conn, MurkyWeb.EditLive, file: "first_file"))
   end
 end
