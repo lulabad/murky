@@ -54,4 +54,22 @@ defmodule Murky.DataTest do
     Data.save_file(filename, "Marge Simpson")
     assert Data.get_raw_md(filename) == "Marge Simpson"
   end
+
+  test "delete successful a file" do
+    filename = "first"
+    Data.create_file(filename)
+    assert Data.get_files() == ["first"]
+
+    Data.delete_file(filename)
+
+    assert Data.get_files() == []
+  end
+
+  test "error while deleting non existing file" do
+    filename = "first"
+
+    assert_raise File.Error, fn ->
+      Data.delete_file(filename)
+    end
+  end
 end
