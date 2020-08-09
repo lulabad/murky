@@ -1,8 +1,7 @@
 defmodule Murky.Data do
   def get_md(filename) do
-    get_storage_path()
-    |> Path.join(filename <> ".md")
-    |> File.read!()
+    filename
+    |> get_raw_md()
     |> Earmark.as_html!(%Earmark.Options{code_class_prefix: "lang- language-"})
   end
 
@@ -35,6 +34,12 @@ defmodule Murky.Data do
     |> File.write!(content)
 
     :ok
+  end
+
+  def delete_file(filename) do
+    get_storage_path()
+    |> Path.join(filename <> ".md")
+    |> File.rm!()
   end
 
   @spec get_storage_path() :: String.t()
