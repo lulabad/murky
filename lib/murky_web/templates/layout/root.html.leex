@@ -7,6 +7,7 @@
     <%= csrf_meta_tag() %>
     <%= live_title_tag assigns[:page_title] || "Murky", suffix: " · Phoenix Framework" %>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;400;800;900&display=swap" rel="stylesheet">
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
@@ -16,7 +17,7 @@
           <div class="header__title"><a href="/">Murky</a></div>
           <div class="header__subtitle">the markdown experience</div>
         </h1>
-        
+
       </header>
       <%= @inner_content %>
     </div>

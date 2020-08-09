@@ -33,16 +33,16 @@ defmodule MurkyWeb.PageLiveTest do
     assert view
            |> render()
            |> Floki.parse_document!()
-           |> Floki.find(".index-list__item")
+           |> Floki.find(".list-item")
            |> Enum.count() == 2
   end
 
-  test "click on the link redirects to the view", %{conn: conn} do
+  test "click on the item redirects to the view", %{conn: conn} do
     Data.create_file("first_file")
     {:ok, view, _disconnected_html} = live(conn, "/")
 
     view
-    |> element(".index-list__item a:first-child()")
+    |> element(".list-item:first-child()")
     |> render_click()
 
     assert_redirect(view, Routes.live_path(conn, MurkyWeb.ViewLive, file: "first_file"))
@@ -55,7 +55,7 @@ defmodule MurkyWeb.PageLiveTest do
            |> element("button[phx-click='add_md']")
            |> render_click()
            |> Floki.parse_document!()
-           |> Floki.find(".new-file")
+           |> Floki.find("form[phx-submit='save']")
            |> Enum.count() == 1
   end
 
@@ -67,14 +67,14 @@ defmodule MurkyWeb.PageLiveTest do
            |> element("button[phx-click='add_md']")
            |> render_click()
            |> Floki.parse_document!()
-           |> Floki.find(".new-file")
+           |> Floki.find("form[phx-submit='save']")
            |> Enum.count() == 1
 
     assert view
            |> element("button[phx-click='cancel']")
            |> render_click()
            |> Floki.parse_document!()
-           |> Floki.find(".new-file")
+           |> Floki.find("form[phx-submit='save']")
            |> Enum.count() == 0
   end
 
@@ -89,7 +89,40 @@ defmodule MurkyWeb.PageLiveTest do
            |> element("form")
            |> render_submit(%{"filename" => "my_new_file"})
            |> Floki.parse_document!()
-           |> Floki.find(".index-list__item")
+           |> Floki.find(".list-item")
            |> Enum.count() == 1
+  end
+
+  test "delete a file", %{conn: conn} do
+    Data.create_file("first_file")
+    {:ok, view, _disconnected_html} = live(conn, "/")
+
+    view
+    |> element("button[phx-click='try-delete-file'][phx-value-filename='first_file']")
+    |> render_click()
+
+    view
+    |> element("button[phx-click='delete-file']")
+    |> render_click()
+
+    refute view |> element("li[phx-value-filename='first-file']") |> has_element?()
+    assert Data.get_files() == []
+  end
+
+  test "cancel delete a file", %{conn: conn} do
+    Data.create_file("first_file")
+    {:ok, view, _disconnected_html} = live(conn, "/")
+
+    view
+    |> element("button[phx-click='try-delete-file'][phx-value-filename='first_file']")
+    |> render_click()
+
+    view
+    |> element("button[phx-click='close-delete-file']")
+    |> render_click()
+
+    refute view |> element(".modal-container") |> has_element?()
+    assert view |> element("li[phx-value-filename='first_file']") |> has_element?()
+    assert Data.get_files() == ["first_file"]
   end
 end
