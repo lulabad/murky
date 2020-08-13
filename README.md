@@ -1,10 +1,8 @@
 # Murky - the markdown experience
 
-A simple markdown wiki
+`Murky` is a simple Markdown wiki written in Elixir an use Phoenix LiveView.
 
-## Description
-
-`Murky` is a simple Markdown wiki written in Elixir with Phoenix Liveview.
+The [Monaco Editor](https://microsoft.github.io/monaco-editor/) is integrated for better writing experience. It has also a live preview of the rendered markdown.
 
 ## Usage
 
@@ -38,3 +36,5 @@ $env:STORAGE_PATH="xxx"
 ```
 
 Then you can run the tests with `mix test`
+
+If you use [VSCode](https://code.visualstudio.com/) then there is already a test task called `run tests`
