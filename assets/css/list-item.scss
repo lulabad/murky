@@ -30,7 +30,7 @@
         border: none;
         background-color: transparent;
         padding: .4rem;
-        margin: 0 1rem;
+        // margin: 0 .2rem;
 
         &:hover {
             background-color: rgba($color-secondary-1-1, .5);
@@ -39,9 +39,16 @@
 
 
         & img {
-            width: 2rem;
-            height: 2rem;
+            width: 1.6rem;
+            height: 1.6rem;
         }
+
+        &:last-child {
+            margin-right: .6rem;
+        }
+
     }
+
+
 
 }

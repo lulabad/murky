@@ -23,11 +23,11 @@ defmodule MurkyWeb.PageLive do
     {:noreply, assign(socket, show_new: false, list_of_files: list_of_files)}
   end
 
-  def handle_event("add_md", _value, socket) do
+  def handle_event("add_md", _, socket) do
     {:noreply, assign(socket, show_new: true)}
   end
 
-  def handle_event("cancel", _value, socket) do
+  def handle_event("cancel", _, socket) do
     {:noreply, assign(socket, show_new: false)}
   end
 
@@ -36,9 +36,8 @@ defmodule MurkyWeb.PageLive do
      push_redirect(socket, to: Routes.live_path(socket, MurkyWeb.ViewLive, file: filename))}
   end
 
-  def handle_event("try-delete-file", value, socket) do
-    {:noreply,
-     assign(socket, show_confirm_delete: true, filename_to_delete: Map.get(value, "filename"))}
+  def handle_event("try-delete-file", %{"filename" => filename}, socket) do
+    {:noreply, assign(socket, show_confirm_delete: true, filename_to_delete: filename)}
   end
 
   def handle_event("close-delete-file", _, socket) do
@@ -49,6 +48,11 @@ defmodule MurkyWeb.PageLive do
     Data.delete_file(socket.assigns.filename_to_delete)
     list_of_files = Data.get_files()
     {:noreply, assign(socket, list_of_files: list_of_files, show_confirm_delete: false)}
+  end
+
+  def handle_event("edit-file", %{"filename" => filename}, socket) do
+    {:noreply,
+     push_redirect(socket, to: Routes.live_path(socket, MurkyWeb.EditLive, file: filename))}
   end
 
   @impl true

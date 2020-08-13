@@ -125,4 +125,15 @@ defmodule MurkyWeb.PageLiveTest do
     assert view |> element("li[phx-value-filename='first_file']") |> has_element?()
     assert Data.get_files() == ["first_file"]
   end
+
+  test "click on the edit file redirects to the edit view", %{conn: conn} do
+    Data.create_file("first_file")
+    {:ok, view, _disconnected_html} = live(conn, "/")
+
+    view
+    |> element("button[phx-click='edit-file'][phx-value-filename='first_file']")
+    |> render_click()
+
+    assert_redirect(view, Routes.live_path(conn, MurkyWeb.EditLive, file: "first_file"))
+  end
 end
