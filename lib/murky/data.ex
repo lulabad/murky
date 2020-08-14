@@ -15,6 +15,7 @@ defmodule Murky.Data do
   def get_files() do
     get_storage_path()
     |> File.ls!()
+    |> Enum.filter(fn x -> Path.extname(x) == ".md" end)
     |> Enum.map(fn x -> Path.basename(x, ".md") end)
   end
 

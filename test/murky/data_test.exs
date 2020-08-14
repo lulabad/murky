@@ -32,6 +32,16 @@ defmodule Murky.DataTest do
     assert Data.get_files() == ["file1", "file2"]
   end
 
+  test "list only md files" do
+    Data.create_file("file1")
+
+    Data.get_storage_path()
+    |> Path.join("wrong-file.txt")
+    |> File.touch!()
+
+    assert Data.get_files() == ["file1"]
+  end
+
   test "save file updates the file content" do
     Data.create_file("file1")
 
