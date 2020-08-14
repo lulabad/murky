@@ -7,7 +7,9 @@ defmodule MurkyWeb.PageLive do
     show_new: false,
     show_confirm_delete: false,
     filename_to_delete: "",
-    list_of_files: []
+    list_of_files: [],
+    new_filename: "",
+    new_error: false
   }
 
   @impl true
@@ -17,18 +19,34 @@ defmodule MurkyWeb.PageLive do
   end
 
   @impl true
-  def handle_event("save", value, socket) do
-    Data.create_file(Map.get(value, "filename"))
-    list_of_files = Data.get_files()
-    {:noreply, assign(socket, show_new: false, list_of_files: list_of_files)}
+  def handle_event("new_save", _, socket) do
+    case Data.filename_valid?(socket.assigns.new_filename) do
+      false ->
+        {:noreply, assign(socket, new_error: true)}
+
+      _ ->
+        Data.create_file(socket.assigns.new_filename)
+        list_of_files = Data.get_files()
+
+        {:noreply,
+         assign(socket, show_new: false, list_of_files: list_of_files, new_filename: "")}
+    end
   end
 
-  def handle_event("add_md", _, socket) do
+  def handle_event("new_show", _, socket) do
     {:noreply, assign(socket, show_new: true)}
   end
 
-  def handle_event("cancel", _, socket) do
-    {:noreply, assign(socket, show_new: false)}
+  def handle_event("new_cancel", _, socket) do
+    {:noreply, assign(socket, show_new: false, new_filename: "", new_error: false)}
+  end
+
+  def handle_event("new_changed", %{"key" => "Enter"}, socket) do
+    handle_event("new_save", nil, socket)
+  end
+
+  def handle_event("new_changed", %{"key" => _, "value" => value}, socket) do
+    {:noreply, assign(socket, new_filename: value, new_error: !Data.filename_valid?(value))}
   end
 
   def handle_event("to-view", %{"filename" => filename}, socket) do
@@ -60,7 +78,7 @@ defmodule MurkyWeb.PageLive do
     ~L"""
     <div class="index-page">
       <h2 class="index-page__title">Index
-        <button phx-click="add_md" class="btn">add new file</button>
+        <button phx-click="new_show" class="btn">add new file</button>
       </h2>
       <div class="index-list">
         <ul>
@@ -71,12 +89,24 @@ defmodule MurkyWeb.PageLive do
       </div>
     </div>
     <%= if @show_new do %>
-      <%= live_component @socket, MurkyWeb.Component.ModalContainer, close: "cancel" do %>
-        <form phx-submit="save" >
-          <input type="text" placeholder="new name" name="filename"/>
-          <button class="btn">save</button>
-        </form>
-        <button phx-click="cancel" phx-value-button="cancel" class="btn">cancel</button>
+      <%= live_component @socket, MurkyWeb.Component.ModalContainer, close: "new_cancel" do %>
+        <div class="new">
+          <div class="new__row">
+            <div class="new__title">Create new file</div>
+          </div>
+          <div class="new__row">
+            <input phx-keyup="new_changed" type="text" placeholder="Filename" name="filename" value="<%= @new_filename %>"/>
+          </div>
+          <%= if @new_error do %>
+            <div class="new__row">
+              <div class="new__error">Filename contains invalid characters</div>
+            </div>
+          <% end %>
+          <div class="new__row">
+            <button phx-click="new_save" class="btn btn-primary">save</button>
+            <button phx-click="new_cancel" class="btn">cancel</button>
+          </div>
+        </div>
       <% end %>
     <% end %>
 

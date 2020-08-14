@@ -46,4 +46,12 @@ defmodule Murky.Data do
   def get_storage_path() do
     System.fetch_env!("STORAGE_PATH")
   end
+
+  def filename_valid?(filename) do
+    cond do
+      filename == "" -> false
+      Zarex.sanitize(filename) == filename -> true
+      true -> false
+    end
+  end
 end

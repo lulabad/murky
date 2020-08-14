@@ -52,29 +52,29 @@ defmodule MurkyWeb.PageLiveTest do
     {:ok, view, _disconnected_html} = live(conn, "/")
 
     assert view
-           |> element("button[phx-click='add_md']")
+           |> element("button[phx-click='new_show']")
            |> render_click()
            |> Floki.parse_document!()
-           |> Floki.find("form[phx-submit='save']")
+           |> Floki.find("button[phx-click='new_save']")
            |> Enum.count() == 1
   end
 
-  test "click on cancel on new md close the dialog", %{conn: conn} do
+  test "click on cancel on new close the dialog", %{conn: conn} do
     {:ok, view, _disconnected_html} = live(conn, "/")
 
     # make sure the dialog is open
     assert view
-           |> element("button[phx-click='add_md']")
+           |> element("button[phx-click='new_show']")
            |> render_click()
            |> Floki.parse_document!()
-           |> Floki.find("form[phx-submit='save']")
+           |> Floki.find("button[phx-click='new_save']")
            |> Enum.count() == 1
 
     assert view
-           |> element("button[phx-click='cancel']")
+           |> element("button[phx-click='new_cancel']")
            |> render_click()
            |> Floki.parse_document!()
-           |> Floki.find("form[phx-submit='save']")
+           |> Floki.find("button[phx-click='new_save']")
            |> Enum.count() == 0
   end
 
@@ -82,12 +82,16 @@ defmodule MurkyWeb.PageLiveTest do
     {:ok, view, _disconnected_html} = live(conn, "/")
 
     assert view
-           |> element("button[phx-click='add_md']")
+           |> element("button[phx-click='new_show']")
            |> render_click()
 
+    view
+    |> element("input")
+    |> render_keyup(%{key: "d", value: "blub"})
+
     assert view
-           |> element("form")
-           |> render_submit(%{"filename" => "my_new_file"})
+           |> element("button[phx-click='new_save']")
+           |> render_click()
            |> Floki.parse_document!()
            |> Floki.find(".list-item")
            |> Enum.count() == 1

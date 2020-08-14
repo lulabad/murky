@@ -72,4 +72,20 @@ defmodule Murky.DataTest do
       Data.delete_file(filename)
     end
   end
+
+  test "empty filename is not valid" do
+    refute Data.filename_valid?("")
+  end
+
+  test "simple filename is valid" do
+    assert Data.filename_valid?("ddd")
+  end
+
+  test "to long filename is not valid" do
+    refute Data.filename_valid?(String.duplicate("a", 300))
+  end
+
+  test "filename with not supported chars is not valid" do
+    refute Data.filename_valid?("d:")
+  end
 end
