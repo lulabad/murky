@@ -38,3 +38,7 @@ $env:STORAGE_PATH="xxx"
 Then you can run the tests with `mix test`
 
 If you use [VSCode](https://code.visualstudio.com/) then there is already a test task called `run tests`
+
+## License
+
+This software is licensed under [the MIT license](LICENSE).
