@@ -2,21 +2,22 @@
 version: "3"
 
 volumes:
-    wiki_data:
+  wiki_data:
 
 # Containers we are going to run
 services:
-    # Our Phoenix container
-    web:
-        # The build parameters for this container.
-        build:
-            # Here we define that it should build from the current directory
-            context: .
-        # environment:
-        # Variables to connect to our Postgres server
-        ports:
-            # Mapping the port to make the Phoenix app accessible outside of the container
-            - "4000:4000"
+  # Our Phoenix container
+  web:
+    restart: always
+    # The build parameters for this container.
+    build:
+      # Here we define that it should build from the current directory
+      context: .
+    # environment:
+    # Variables to connect to our Postgres server
+    ports:
+      # Mapping the port to make the Phoenix app accessible outside of the container
+      - "4000:4000"
 
-        volumes:
-            - wiki_data:/app/wiki
+    volumes:
+      - wiki_data:/app/wiki
