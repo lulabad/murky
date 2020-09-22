@@ -29,7 +29,7 @@ defmodule Murky.DataTest do
     Data.create_file("file1")
     Data.create_file("file2")
 
-    assert Data.get_files() == ["file1", "file2"]
+    assert Data.get_files() -- ["file1", "file2"] == []
   end
 
   test "list only md files" do
