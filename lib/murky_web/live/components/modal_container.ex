@@ -3,8 +3,8 @@ defmodule MurkyWeb.Component.ModalContainer do
 
   def render(assigns) do
     ~L"""
-    <div class="absolute flex inset-0 z-50 bg-white justify-center items-center" phx-capture-click="<%= @close %>">
-      <div class="relative bg-primary-200 p-12 rounded-lg bg-opacity-25 shadow-md border-primary-200 border">
+    <div class="absolute flex inset-0 z-50 bg-gray-700 bg-opacity-25 justify-center items-center" phx-capture-click="<%= @close %>">
+      <div class="relative bg-primary-200 p-8 rounded-lg shadow-md border-primary-200 border">
         <%= @inner_content.([]) %>
       </div>
     </div>

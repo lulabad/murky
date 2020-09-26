@@ -92,13 +92,13 @@ defmodule MurkyWeb.PageLive do
       <%= live_component @socket, MurkyWeb.Component.ModalContainer, close: "new_cancel" do %>
         <div class="space-y-4">
           <div class="">
-            <div class="">Create new file</div>
+            <div class="text-lg">Create new file</div>
           </div>
           <div class="">
-            <input class="shadow appearance-none border rounded py-1 px-3" phx-keyup="new_changed" type="text" placeholder="Filename" name="filename" value="<%= @new_filename %>"/>
+            <input class="shadow focus:border-primary-200 border focus:border-b-8 appearance-none rounded py-1 px-3" phx-keyup="new_changed" type="text" placeholder="Filename" name="filename" value="<%= @new_filename %>"/>
           </div>
-              <div class="text-alternate-100  <%= if !@new_error do %>invisible<% end %>">Filename contains invalid characters</div>
-          <div class="">
+              <div class="text-red-800  <%= if !@new_error do %>invisible<% end %>">Filename contains invalid characters</div>
+          <div class="flex space-x-2">
             <%= live_component @socket, MurkyWeb.Component.Button, action: "new_save", text: "save", primary: true %>
             <%= live_component @socket, MurkyWeb.Component.Button, action: "new_cancel", text: "cancel" %>
           </div>

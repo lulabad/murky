@@ -6,14 +6,14 @@ defmodule MurkyWeb.Component.Button do
 
     ~L"""
       <button phx-click="<%= @action %>"
-        class="hover:shadow bg-opacity-50 rounded <%= col %> hover:<%= col %> text-secondary-500 uppercase px-2">
+        class="hover:shadow bg-opacity-75 rounded <%= col %> hover:<%= col %> text-secondary-500 uppercase px-2">
         <%= @text %>
       </button>
     """
   end
 
   defp color(%{primary: true}) do
-    "bg-alternate-200"
+    "bg-alternate-300"
   end
 
   defp color(_) do
