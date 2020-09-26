@@ -1,10 +1,10 @@
 .markdown {
-    font-size: 1.2rem;
+    font-size: 1rem;
     /* padding: 2rem; */
 }
 
 .markdown h1 {
-    border-bottom: 1px solid #0F4141;
+    border-bottom: 1px solid #0f4141;
     margin-bottom: 1rem;
     margin-top: 2rem;
     font-size: 1.7rem;
@@ -21,7 +21,6 @@
 .markdown h4 {
     font-size: 1.3rem;
 }
-
 
 .markdown p,
 pre {
@@ -47,7 +46,7 @@ pre {
 .markdown blockquote {
     background-color: rgba(51, 103, 103, 0.5);
     padding: 0.1rem 1rem;
-    border-left: 1rem solid #0F4141;
+    border-left: 1rem solid #0f4141;
 }
 
 .markdown table td,
@@ -56,9 +55,9 @@ th {
 }
 
 .markdown table thead tr th {
-    border-bottom: 0.3rem solid #0F4141;
+    border-bottom: 0.3rem solid #0f4141;
 }
 
 .markdown table tbody tr td {
-    border-bottom: 0.1rem solid #0F4141;
+    border-bottom: 0.1rem solid #0f4141;
 }
