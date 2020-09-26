@@ -34,16 +34,21 @@ defmodule MurkyWeb.EditLive do
   @impl true
   def render(assigns) do
     ~L"""
-    <div class="edit-container">
-      <h1>
-          Live Edit
-          <button phx-click="save" class="btn">save</button>
-      </h1>
-      <div class="edit-container__edit">
+    <div class="mx-6 flex flex-col h-full ">
+      <div class="flex mb-10 mt-4 ">
+        <div class="mr-6 text-xl border-b-4 border-primary-200 px-2"><%= @filename %></div>
+        <div class="flex-grow"></div>
+        <%= live_component @socket, MurkyWeb.Component.Button, action: "save", text: "save" %>
+      </div>
+      <div class="h-full relative">
+        <div id="blub" class="flex absolute inset-0">
+          <div class="flex-grow h-full relative">
           <%= live_component @socket, MurkyWeb.MonacoComponent, id: "monaco", raw_md: @raw_md %>
-          <div class="edit-container__preview">
-              <%= live_component @socket, MurkyWeb.ViewMarkdown, rendered_markdown: @md  %>
           </div>
+          <div class="overflow-y-scroll h-full w-2/4">
+            <%= live_component @socket, MurkyWeb.ViewMarkdown, rendered_markdown: @md  %>
+          </div>
+        </div>
       </div>
     </div>
 

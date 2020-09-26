@@ -9,14 +9,28 @@ defmodule MurkyWeb.ViewLive do
   end
 
   @impl true
+  def handle_event("edit", _, socket) do
+    {:noreply,
+     push_redirect(
+       socket,
+       to: Routes.live_path(socket, MurkyWeb.EditLive, file: socket.assigns.filename)
+     )}
+  end
+
+  @impl true
   def render(assigns) do
     ~L"""
-    <div class="markdown_view">
-      <div class="markdown_view__header">
-          <div class="markdown_view__title"><%= @filename %></div>
-          <%= live_redirect "edit", to: Routes.live_path(@socket, MurkyWeb.EditLive, file: @filename), class: "btn"%>
+    <div class="px-6 ">
+      <div class="flex mb-10 mt-4 ">
+          <div class="mr-6 text-xl border-b-4 border-primary-200 px-2">
+            <%= @filename %>
+          </div>
+          <div class="flex-grow"></div>
+          <%= live_component @socket, MurkyWeb.Component.Button, action: "edit", text: "edit", assigns: assigns %>
       </div>
-      <%= live_component @socket, MurkyWeb.ViewMarkdown, rendered_markdown: @md %>
+      <div class="container mx-auto">
+        <%= live_component @socket, MurkyWeb.ViewMarkdown, rendered_markdown: @md %>
+      </div>
     </div>
     """
   end
