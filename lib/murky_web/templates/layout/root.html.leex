@@ -13,9 +13,13 @@
   <body>
     <div id="world" class="h-full  flex flex-col">
       <header class="">
-        <h1 class="flex items-baseline ">
-          <div class="text-5xl font-black text-primary-600 mx-2"><a href="/">Murky</a></div>
-          <div class="text-lg text-primary-400 uppercase">the markdown experience</div>
+        <h1 class="flex items-end">
+          <div class="mx-2 mt-2">
+            <a href="/">
+              <img class="h-12" src="<%= Routes.static_path(@conn, "/images/murky.svg") %>"/>
+            </a>
+          </div>
+          <div class="mb-1 text-lg text-primary-400 uppercase">the markdown experience</div>
         </h1>
 
       </header>
