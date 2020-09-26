@@ -76,12 +76,12 @@ defmodule MurkyWeb.PageLive do
   @impl true
   def render(assigns) do
     ~L"""
-    <div class="index-page">
-      <h2 class="index-page__title">Index
-        <button phx-click="new_show" class="btn">add new file</button>
-      </h2>
+    <div id="page_live" class="flex flex-col">
+      <div class="mx-2 mb-4 mt-2">
+        <%= live_component @socket, MurkyWeb.Component.Button, action: "new_show", text: "add new file" %>
+        </div>
       <div class="index-list">
-        <ul>
+        <ul class="flex flex-wrap list-none">
         <%= for f <- @list_of_files do %>
           <%= live_component @socket, MurkyWeb.Component.ListItem, filename: f %>
         <% end %>
@@ -90,21 +90,17 @@ defmodule MurkyWeb.PageLive do
     </div>
     <%= if @show_new do %>
       <%= live_component @socket, MurkyWeb.Component.ModalContainer, close: "new_cancel" do %>
-        <div class="new">
-          <div class="new__row">
-            <div class="new__title">Create new file</div>
+        <div class="space-y-4">
+          <div class="">
+            <div class="">Create new file</div>
           </div>
-          <div class="new__row">
-            <input phx-keyup="new_changed" type="text" placeholder="Filename" name="filename" value="<%= @new_filename %>"/>
+          <div class="">
+            <input class="shadow appearance-none border rounded py-1 px-3" phx-keyup="new_changed" type="text" placeholder="Filename" name="filename" value="<%= @new_filename %>"/>
           </div>
-          <%= if @new_error do %>
-            <div class="new__row">
-              <div class="new__error">Filename contains invalid characters</div>
-            </div>
-          <% end %>
-          <div class="new__row">
-            <button phx-click="new_save" class="btn btn-primary">save</button>
-            <button phx-click="new_cancel" class="btn">cancel</button>
+              <div class="text-alternate-100  <%= if !@new_error do %>invisible<% end %>">Filename contains invalid characters</div>
+          <div class="">
+            <%= live_component @socket, MurkyWeb.Component.Button, action: "new_save", text: "save", primary: true %>
+            <%= live_component @socket, MurkyWeb.Component.Button, action: "new_cancel", text: "cancel" %>
           </div>
         </div>
       <% end %>

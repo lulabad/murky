@@ -20,7 +20,7 @@ defmodule MurkyWeb.PageLiveTest do
 
     assert disconnected_html
            |> Floki.parse_document!()
-           |> Floki.find(".index-page")
+           |> Floki.find("#page_live")
            |> Enum.count() == 1
   end
 
@@ -33,7 +33,7 @@ defmodule MurkyWeb.PageLiveTest do
     assert view
            |> render()
            |> Floki.parse_document!()
-           |> Floki.find(".list-item")
+           |> Floki.find("li")
            |> Enum.count() == 2
   end
 
@@ -42,7 +42,7 @@ defmodule MurkyWeb.PageLiveTest do
     {:ok, view, _disconnected_html} = live(conn, "/")
 
     view
-    |> element(".list-item:first-child()")
+    |> element("li:first-child()")
     |> render_click()
 
     assert_redirect(view, Routes.live_path(conn, MurkyWeb.ViewLive, file: "first_file"))
@@ -93,7 +93,7 @@ defmodule MurkyWeb.PageLiveTest do
            |> element("button[phx-click='new_save']")
            |> render_click()
            |> Floki.parse_document!()
-           |> Floki.find(".list-item")
+           |> Floki.find("li")
            |> Enum.count() == 1
   end
 

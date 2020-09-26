@@ -1,0 +1,24 @@
+/* This file is for your main application css. */
+/* SASS style sheet */
+/* Palette color codes */
+/* Palette URL: http://paletton.com/#uid=53i0u0kgaly7lvfbSpTjVhzoDd- */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "markdown.css";
+
+html,
+body,
+#world,
+main {
+    height: 100%;
+}
+
+
+div.phx-connected {
+    height: 100%;
+    display: flex;
+    width: 100%;
+}

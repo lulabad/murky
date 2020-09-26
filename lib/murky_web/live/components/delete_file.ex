@@ -3,10 +3,12 @@ defmodule MurkyWeb.Component.DeleteFile do
 
   def render(assigns) do
     ~L"""
-    <div class="confirm-delete">
-      <div class="confirm-delete__text">Do you realy want to delete the file <span>'<%= @filename %>'</span>?</div>
-      <button phx-click="delete-file" class="btn btn-primary">delete file</button>
-      <button phx-click="close-delete-file" class="btn">cancel</button>
+    <div class="flex flex-col">
+      <div class="mb-4 text-lg">Do you really want to delete the file <span class="font-black">'<%= @filename %>'</span>?</div>
+      <div>
+        <%= live_component @socket, MurkyWeb.Component.Button, action: "delete-file", text: "delete file", primary: true %>
+        <%= live_component @socket, MurkyWeb.Component.Button, action: "close-delete-file", text: "cancel" %>
+      </div>
     </div>
 
     """

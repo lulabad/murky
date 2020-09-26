@@ -24,7 +24,7 @@ defmodule MurkyWeb.ViewLiveTest do
     assert view
            |> render()
            |> Floki.parse_document!()
-           |> Floki.find(".markdown_view")
+           |> Floki.find(".markdown")
            |> Enum.count() == 1
   end
 
@@ -49,7 +49,7 @@ defmodule MurkyWeb.ViewLiveTest do
       live(conn, Routes.live_path(conn, MurkyWeb.ViewLive, file: "first_file"))
 
     view
-    |> element(".markdown_view__header a")
+    |> element("button[phx-click='edit']")
     |> render_click()
 
     assert_redirect(view, Routes.live_path(conn, MurkyWeb.EditLive, file: "first_file"))

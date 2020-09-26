@@ -1,7 +1,7 @@
 // We need to import the CSS so that webpack will load it.
 // The MiniCssExtractPlugin is used to separate it out into
 // its own CSS file.
-import "../css/app.scss";
+import "../css/app.css";
 import Prism from "prismjs";
 import * as monaco from "monaco-editor";
 // webpack automatically bundles all modules in your
@@ -14,9 +14,13 @@ import * as monaco from "monaco-editor";
 //     import socket from "./socket"
 //
 import "phoenix_html";
-import { Socket } from "phoenix";
+import {
+    Socket
+} from "phoenix";
 import NProgress from "nprogress";
-import { LiveSocket } from "phoenix_live_view";
+import {
+    LiveSocket
+} from "phoenix_live_view";
 
 const Hooks = {};
 Hooks.MonacoEditor = {
@@ -24,6 +28,7 @@ Hooks.MonacoEditor = {
         this.edit = monaco.editor.create(this.el, {
             value: this.el.dataset.raw,
             language: "markdown",
+            automaticLayout: true
         });
         this.edit.getModel().onDidChangeContent((e) =>
             this.pushEvent("update", {
@@ -37,7 +42,9 @@ let csrfToken = document
     .querySelector("meta[name='csrf-token']")
     .getAttribute("content");
 let liveSocket = new LiveSocket("/live", Socket, {
-    params: { _csrf_token: csrfToken },
+    params: {
+        _csrf_token: csrfToken
+    },
     hooks: Hooks,
 });
 

@@ -1,0 +1,64 @@
+.markdown {
+    font-size: 1.2rem;
+    /* padding: 2rem; */
+}
+
+.markdown h1 {
+    border-bottom: 1px solid #0F4141;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    font-size: 1.7rem;
+}
+
+.markdown h2 {
+    font-size: 1.5rem;
+}
+
+.markdown h3 {
+    font-size: 1.4rem;
+}
+
+.markdown h4 {
+    font-size: 1.3rem;
+}
+
+
+.markdown p,
+pre {
+    margin: 1rem 0;
+}
+
+.markdown p code {
+    color: #448944;
+    font-weight: 900;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+.markdown pre {
+    padding: 1.6rem;
+}
+
+.markdown pre[class*="language-"] {
+    border-radius: 0;
+    border: none;
+}
+
+.markdown blockquote {
+    background-color: rgba(51, 103, 103, 0.5);
+    padding: 0.1rem 1rem;
+    border-left: 1rem solid #0F4141;
+}
+
+.markdown table td,
+th {
+    padding-left: 1rem;
+}
+
+.markdown table thead tr th {
+    border-bottom: 0.3rem solid #0F4141;
+}
+
+.markdown table tbody tr td {
+    border-bottom: 0.1rem solid #0F4141;
+}
