@@ -21,6 +21,9 @@ import NProgress from "nprogress";
 import {
     LiveSocket
 } from "phoenix_live_view";
+import {
+    PhoenixLiveViewDropzone
+} from "phoenix_live_view_drop_zone";
 
 const Hooks = {};
 Hooks.MonacoEditor = {
@@ -35,8 +38,16 @@ Hooks.MonacoEditor = {
                 value: this.edit.getModel().getValue(),
             })
         );
+        this.handleEvent("uploaded", ({
+            image_link_md
+        }) => this.edit.trigger('keyboard', 'type', {
+            text: image_link_md
+        }));
     },
 };
+
+Hooks.PhoenixLiveViewDropzone = new PhoenixLiveViewDropzone();
+
 
 let csrfToken = document
     .querySelector("meta[name='csrf-token']")

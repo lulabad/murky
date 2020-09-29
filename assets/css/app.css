@@ -21,3 +21,31 @@ div.phx-connected {
     display: flex;
     width: 100%;
 }
+
+#phoenix-live-view-dropzone {
+    display: flex;
+    align-items: stretch;
+    margin: 0 0.2rem;
+}
+
+#phoenix-live-view-dropzone>div {
+    border: 2px dashed #0F4141;
+    border-radius: .25rem;
+    font-size: 1rem;
+    padding: 0 1rem;
+    display: flex;
+}
+
+#phoenix-live-view-dropzone button {
+    color: #0F4141;
+}
+
+#phoenix-live-view-dropzone .drag-hovering {
+    background-color: rgba(115, 149, 149, .5);
+    border-style: solid;
+}
+
+#phoenix-live-view-dropzone>div:hover {
+    background-color: rgba(115, 149, 149, .5);
+    border-style: solid;
+}

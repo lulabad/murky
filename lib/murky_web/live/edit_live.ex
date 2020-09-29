@@ -1,6 +1,7 @@
 defmodule MurkyWeb.EditLive do
   use MurkyWeb, :live_view
   alias Murky.Data
+  alias MurkyWeb.Router.Helpers, as: Routes
 
   @impl true
   def mount(params, _session, socket) do
@@ -15,6 +16,7 @@ defmodule MurkyWeb.EditLive do
       |> assign(md: md)
       |> assign(raw_md_new: raw_md)
       |> assign(filename: filename)
+      |> assign(file_data: %{id: "", url: ""})
 
     {:ok, socket}
   end
@@ -31,6 +33,59 @@ defmodule MurkyWeb.EditLive do
     {:noreply, socket}
   end
 
+  def handle_event("phx-dropzone", [event, payload], socket) do
+    socket |> handle_drop(event, payload) |> drop_replay
+  end
+
+  defp drop_replay(socket = %{assigns: %{filetarget: filetarget, file_data: %{id: id}}}) do
+    """
+    Will be called if the upload is finished.
+    It will push an event back to javascript hook to place the link into the editor
+
+    The push message is raw markdown like: `![1601406887805](/files/1601406887805.PNG)`
+    """
+
+    replay_message = "![" <> id <> "](" <> filetarget <> ")"
+
+    socket = %{
+      socket
+      | assigns: Map.delete(socket.assigns, :filetarget),
+        changed: Map.put_new(socket.changed, :filetarget, true)
+    }
+
+    {:noreply, push_event(socket, "uploaded", %{image_link_md: replay_message})}
+  end
+
+  defp drop_replay(socket) do
+    {:noreply, socket}
+  end
+
+  defp handle_drop(socket, "generate-url", payload) do
+    id = Map.get(payload, "id")
+
+    assign(socket,
+      file_data: %{
+        id: id,
+        url: Routes.upload_path(MurkyWeb.Endpoint, :update, id)
+      }
+    )
+  end
+
+  defp handle_drop(socket, "file-status", %{"status" => "Done", "id" => id, "name" => name}) do
+    ext = Path.extname(name)
+
+    source = Data.get_storage_path() |> Path.join(id)
+    new_name = id <> ext
+    target = Data.get_storage_path() |> Path.join(new_name)
+
+    File.rename!(source, target)
+    assign(socket, filetarget: "/files/" <> new_name)
+  end
+
+  defp handle_drop(socket, "file-status", _) do
+    socket
+  end
+
   @impl true
   def render(assigns) do
     ~L"""
@@ -38,6 +93,7 @@ defmodule MurkyWeb.EditLive do
       <div class="flex mb-10 mt-4 ">
         <div class="mr-6 text-xl border-b-4 border-primary-200 px-2"><%= @filename %></div>
         <div class="flex-grow"></div>
+        <%= live_component @socket, PhoenixLiveViewDropzone, file_data: @file_data %>
         <%= live_component @socket, MurkyWeb.Component.Button, action: "save", text: "save" %>
       </div>
       <div class="h-full relative">
