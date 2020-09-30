@@ -21,6 +21,9 @@ config :murky, MurkyWeb.Endpoint,
     ]
   ]
 
+config :murky,
+  storage_path: System.get_env("STORAGE_PATH") || "wiki/"
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed

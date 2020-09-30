@@ -45,7 +45,7 @@ defmodule Murky.Data do
 
   @spec get_storage_path() :: String.t()
   def get_storage_path() do
-    System.fetch_env!("STORAGE_PATH")
+    Application.get_env(:murky, :storage_path)
   end
 
   def filename_valid?(filename) do

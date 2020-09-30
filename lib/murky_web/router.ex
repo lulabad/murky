@@ -22,6 +22,12 @@ defmodule MurkyWeb.Router do
     live "/view", ViewLive
   end
 
+  scope "/uploads", MurkyWeb do
+    pipe_through :api
+
+    resources "/", UploadController, only: [:update]
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", MurkyWeb do
   #   pipe_through :api

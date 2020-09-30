@@ -13,6 +13,9 @@ config :murky, MurkyWeb.Endpoint,
   url: [host: "localhost", port: 4000],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
+config :murky,
+  storage_path: System.get_env("STORAGE_PATH") || "wiki/"
+
 # Do not print debug messages in production
 config :logger, level: :info
 

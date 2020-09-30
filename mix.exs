@@ -45,7 +45,8 @@ defmodule Murky.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:earmark, "~> 1.4"},
-      {:zarex, "~> 1.0"}
+      {:zarex, "~> 1.0"},
+      {:phoenix_live_view_dropzone, "~> 0.0.7"}
     ]
   end
 

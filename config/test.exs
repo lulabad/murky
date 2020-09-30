@@ -6,5 +6,8 @@ config :murky, MurkyWeb.Endpoint,
   http: [port: 4002],
   server: false
 
+config :murky,
+  storage_path: System.get_env("STORAGE_PATH") || "test_data/"
+
 # Print only warnings and errors during test
 config :logger, level: :warn
