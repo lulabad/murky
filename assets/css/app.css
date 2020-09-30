@@ -49,3 +49,9 @@ div.phx-connected {
     background-color: rgba(115, 149, 149, .5);
     border-style: solid;
 }
+
+/* remove the strange shadow from 'coy' theme */
+pre[class*="language-"]:before,
+pre[class*="language-"]:after {
+    content: none !important;
+}
