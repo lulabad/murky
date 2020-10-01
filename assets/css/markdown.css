@@ -19,11 +19,13 @@
 .markdown h3 {
     font-size: 1.4rem;
     margin-top: 0.8rem;
+    margin-bottom: 0.5rem;
 }
 
 .markdown h4 {
     font-size: 1.3rem;
     margin-top: 0.5rem;
+    margin-bottom: 0.3rem;
 }
 
 .markdown p,
@@ -61,6 +63,7 @@ pre {
     border-bottom: 0.1rem solid #205454;
     padding: 0.1rem 0.2rem;
 }
+
 .markdown a:hover {
     background-color: #205454;
     color: white;
@@ -83,6 +86,7 @@ th {
     list-style-type: upper-roman;
     padding-left: 1.1rem;
 }
+
 .markdown ul {
     list-style-type: circle;
     padding-left: 1.1rem;
