@@ -55,3 +55,7 @@ pre[class*="language-"]:before,
 pre[class*="language-"]:after {
     content: none !important;
 }
+
+.menu:hover .menu-group {
+    display: flex;
+}

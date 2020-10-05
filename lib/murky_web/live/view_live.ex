@@ -1,5 +1,8 @@
 defmodule MurkyWeb.ViewLive do
   use MurkyWeb, :live_view
+  alias MurkyWeb.Component
+  alias Murky.MenuEntry
+  alias MurkyWeb.Router.Helpers
 
   @impl true
   def mount(params, _session, socket) do
@@ -26,7 +29,11 @@ defmodule MurkyWeb.ViewLive do
             <%= @filename %>
           </div>
           <div class="flex-grow"></div>
-          <%= live_component @socket, MurkyWeb.Component.Button, action: "edit", text: "edit", assigns: assigns %>
+          <%= live_component @socket, Component.Menu, entries: [
+            %MenuEntry{name: "Edit", action: "edit", prominent: true, icon: Helpers.static_path(@socket, "/images/edit-icon.svg")},
+            %MenuEntry{name: "Rename", action: "show_rename"},
+            %MenuEntry{name: "Delete", action: "show_delete"}
+          ] %>
       </div>
       <div class="container mx-auto">
         <%= live_component @socket, MurkyWeb.ViewMarkdown, rendered_markdown: @md %>
