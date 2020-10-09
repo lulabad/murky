@@ -59,3 +59,21 @@ pre[class*="language-"]:after {
 .menu:hover .menu-group {
     display: flex;
 }
+
+button svg {
+    height: auto;
+    width: auto;
+    fill: #739595;
+}
+
+button:hover svg {
+    fill: #29395E;
+}
+
+.menu-entry-primary-fill svg {
+    fill: #739595;
+}
+
+.menu-entry-primary-stroke svg {
+    stroke: #739595;
+}

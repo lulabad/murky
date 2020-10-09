@@ -49,7 +49,7 @@ defmodule MurkyWeb.ViewLiveTest do
       live(conn, Routes.live_path(conn, MurkyWeb.ViewLive, file: "first_file"))
 
     view
-    |> element("button[phx-click='edit']")
+    |> element("button[phx-click='edit'][class*='prominent']")
     |> render_click()
 
     assert_redirect(view, Routes.live_path(conn, MurkyWeb.EditLive, file: "first_file"))

@@ -2,6 +2,8 @@ defmodule MurkyWeb.EditLive do
   use MurkyWeb, :live_view
   alias Murky.Data
   alias MurkyWeb.Router.Helpers, as: Routes
+  alias MurkyWeb.Component
+  alias Murky.MenuEntry
 
   @impl true
   def mount(params, _session, socket) do
@@ -80,6 +82,12 @@ defmodule MurkyWeb.EditLive do
     socket
   end
 
+  defp buttons() do
+    [
+      %MenuEntry{name: "Save", action: "save", prominent: true, icon: "edit-icon.svg"},
+    ]
+  end
+
   @impl true
   def render(assigns) do
     ~L"""
@@ -88,7 +96,7 @@ defmodule MurkyWeb.EditLive do
         <div class="mr-6 text-xl border-b-4 border-primary-200 px-2"><%= @filename %></div>
         <div class="flex-grow"></div>
         <%= live_component @socket, PhoenixLiveViewDropzone, file_data: @file_data %>
-        <%= live_component @socket, MurkyWeb.Component.Button, action: "save", text: "save" %>
+        <%= live_component @socket, Component.Menu, entries: buttons(), first_rounded: true %>
       </div>
       <div class="h-full relative">
         <div id="blub" class="flex absolute inset-0">
