@@ -3,7 +3,8 @@ defmodule MurkyWeb.Component.Menu do
   alias Murky.MenuEntry
 
   defp icon_source(icon_path) do
-    Application.app_dir(:murky, "priv/static/images/" <> icon_path)
+    Application.app_dir(:murky, ["priv", "static", "images"])
+    |> Path.join(icon_path)
     |> File.read!()
     |> Phoenix.HTML.raw()
 

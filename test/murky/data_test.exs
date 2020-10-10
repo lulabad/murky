@@ -13,10 +13,6 @@ defmodule Murky.DataTest do
     :ok
   end
 
-  test "get_storage_path returns env" do
-    assert Data.get_storage_path() == System.fetch_env!("STORAGE_PATH")
-  end
-
   test "create file creates a file" do
     assert File.ls!(Data.get_storage_path()) == []
 
