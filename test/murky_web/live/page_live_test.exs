@@ -135,7 +135,7 @@ defmodule MurkyWeb.PageLiveTest do
     {:ok, view, _disconnected_html} = live(conn, "/")
 
     view
-    |> element("button[phx-click='edit-file'][phx-value-filename='first_file']")
+    |> element("button[phx-click='edit-file'][phx-value-filename='first_file'][class*='prominent']")
     |> render_click()
 
     assert_redirect(view, Routes.live_path(conn, MurkyWeb.EditLive, file: "first_file"))

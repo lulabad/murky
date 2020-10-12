@@ -2,6 +2,8 @@ defmodule MurkyWeb.PageLive do
   use MurkyWeb, :live_view
   use Phoenix.HTML
   alias Murky.Data
+  alias MurkyWeb.Component
+  alias Murky.MenuEntry
 
   @defaults %{
     show_new: false,
@@ -77,19 +79,20 @@ defmodule MurkyWeb.PageLive do
   def render(assigns) do
     ~L"""
     <div id="page_live" class="flex flex-col">
-      <div class="mx-2 mb-4 mt-2">
-        <%= live_component @socket, MurkyWeb.Component.Button, action: "new_show", text: "add new file" %>
+      <div class="mx-2 mb-4 mt-2 flex h-8">
+        <div class="flex-grow"></div>
+        <%= live_component @socket, Component.Menu, entries: [%MenuEntry{name: "Add new file", action: "new_show", prominent: true, icon: "add_file"},], first_rounded: true %>
         </div>
       <div class="index-list">
         <ul class="flex flex-wrap list-none">
         <%= for f <- @list_of_files do %>
-          <%= live_component @socket, MurkyWeb.Component.ListItem, filename: f %>
+          <%= live_component @socket, Component.ListItem, filename: f %>
         <% end %>
         </ul>
       </div>
     </div>
     <%= if @show_new do %>
-      <%= live_component @socket, MurkyWeb.Component.ModalContainer, close: "new_cancel" do %>
+      <%= live_component @socket, Component.ModalContainer, close: "new_cancel" do %>
         <div class="space-y-4">
           <div class="">
             <div class="text-lg">Create new file</div>
@@ -99,16 +102,16 @@ defmodule MurkyWeb.PageLive do
           </div>
               <div class="text-red-800  <%= if !@new_error do %>invisible<% end %>">Filename contains invalid characters</div>
           <div class="flex space-x-2">
-            <%= live_component @socket, MurkyWeb.Component.Button, action: "new_save", text: "save", primary: true %>
-            <%= live_component @socket, MurkyWeb.Component.Button, action: "new_cancel", text: "cancel" %>
+            <%= live_component @socket, Component.Button, action: "new_save", text: "save", primary: true %>
+            <%= live_component @socket, Component.Button, action: "new_cancel", text: "cancel" %>
           </div>
         </div>
       <% end %>
     <% end %>
 
     <%= if @show_confirm_delete do %>
-      <%= live_component @socket, MurkyWeb.Component.ModalContainer, close: "close-delete-file" do %>
-        <%= live_component @socket, MurkyWeb.Component.DeleteFile, filename: @filename_to_delete %>
+      <%= live_component @socket, Component.ModalContainer, close: "close-delete-file" do %>
+        <%= live_component @socket, Component.DeleteFile, filename: @filename_to_delete %>
       <% end %>
     <% end %>
     """

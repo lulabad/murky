@@ -39,6 +39,9 @@ module.exports = {
             },
         },
     },
-    variants: {},
+    variants: {
+        borderColor: ['responsive', 'hover', 'focus', 'group-hover'],
+        borderRadius: ['responsive', 'hover', 'focus', 'first', 'last'],
+    },
     plugins: [],
 };

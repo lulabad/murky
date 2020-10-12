@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <svg id="three_dots" viewBox="0 0 330 100">
+        <circle cx="50" cy="50" r="50"/>
+        <circle cx="280" cy="50" r="50"/>
+        <circle cx="165" cy="50" r="50"/>
+    </svg>
+
+
+    <svg id="trash" viewBox="0 0 135 134">
+        <path d="M17 34H117V114C117 125.046 108.046 134 97 134H37C25.9543 134 17 125.046 17 114V34Z"/>
+        <rect y="10" width="135" height="19" />
+        <path d="M37.1573 0L17 19H117L98.5 0H37.1573Z"/>
+    </svg>
+
+
+    <svg id="edit" viewBox="0 0 152 151">
+        <rect x="14.2173" y="114.201" width="136.066" height="32.6417" transform="rotate(-45 14.2173 114.201)"/>
+        <rect x="117.667" y="10.5181" width="17.7032" height="32.6417" rx="5" transform="rotate(-45 117.667 10.5181)"/>
+        <rect x="117.667" y="10.5181" width="11.8885" height="32.6417" transform="rotate(-45 117.667 10.5181)"/>
+        <path d="M0.398595 150.735L5.84368 122.067L29.0507 145.206L0.398595 150.735Z" />
+    </svg>
+
+    <svg id="add_file" viewBox="0 0 201 200">
+        <rect x="75" width="50" height="200" />
+        <rect x="199.999" y="75" width="50" height="200" transform="rotate(89.8574 199.999 75)" />
+    </svg>
+</svg>
