@@ -9,14 +9,14 @@ defmodule MurkyWeb.Component.ListItem do
         name: "Edit",
         action: "edit-file",
         prominent: true,
-        icon: "edit-icon.svg",
+        icon: "edit",
         hide_name: true,
         attributes: [["phx-value-filename",assigns.filename]]
       },
       %MenuEntry{
         name: "Delete",
         action: "try-delete-file",
-        icon: "trash-icon.svg",
+        icon: "trash",
         attributes: [["phx-value-filename",assigns.filename]]
       }
     ]

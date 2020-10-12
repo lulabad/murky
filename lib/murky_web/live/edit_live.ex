@@ -84,7 +84,7 @@ defmodule MurkyWeb.EditLive do
 
   defp buttons() do
     [
-      %MenuEntry{name: "Save", action: "save", prominent: true, icon: "edit-icon.svg"},
+      %MenuEntry{name: "Save", action: "save", prominent: true, icon: "edit"},
     ]
   end
 

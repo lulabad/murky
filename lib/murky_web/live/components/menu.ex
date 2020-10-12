@@ -1,14 +1,7 @@
 defmodule MurkyWeb.Component.Menu do
   use Phoenix.LiveComponent
+  import MurkyWeb.Helpers.IconHelper
   alias Murky.MenuEntry
-
-  defp icon_source(icon_path) do
-    Application.app_dir(:murky, ["priv", "static", "images"])
-    |> Path.join(icon_path)
-    |> File.read!()
-    |> Phoenix.HTML.raw()
-
-  end
 
   def render(assigns) do
     # IO.inspect(assigns.entries)
@@ -23,7 +16,7 @@ defmodule MurkyWeb.Component.Menu do
             >
               <div class="flex p-1 w-6">
                 <%= if entry.icon do %>
-                  <%= icon_source(entry.icon) %>
+                  <%= icon_tag(@socket, entry.icon, class: "w-6 h-6 self-center menu-entry-primary-fill") %>
                 <% end %>
               </div>
               <%= if !entry.hide_name do %>
@@ -34,7 +27,7 @@ defmodule MurkyWeb.Component.Menu do
           <%= if !hide_three_dots do %>
             <div class="menu relative">
               <button class="p-1 hover:shadow hover:bg-primary-200 w-8 h-full hover:text-secondary-400 text-primary-200 rounded-r-lg flex">
-                <%= icon_source("three_dots.svg") %>
+              <%= icon_tag(@socket, "three_dots", class: "w-6 h-6 self-center menu-entry-primary-fill") %>
               </button>
               <div class="menu-group absolute hidden shadow right-0 p-1 bg-white flex-col rounded z-50">
                 <%= for entry <- assigns.entries do %>
@@ -46,9 +39,9 @@ defmodule MurkyWeb.Component.Menu do
                     <% end %>
                   >
                     <div class="border-primary-200 group-hover:border-secondary-400 border-r-2 flex p-1 w-6"><%= if entry.icon do %>
-                        <%= icon_source(entry.icon) %>
+                        <%= icon_tag(@socket, entry.icon, class: "w-6 h-6 self-center menu-entry-primary-fill") %>
                       <% end %></div>
-                    <div class="px-2"><%= entry.name %></div>
+                    <div class="px-2 self-center"><%= entry.name %></div>
                   </button>
                 <% end %>
               </div>

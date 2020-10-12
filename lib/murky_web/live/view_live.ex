@@ -5,7 +5,7 @@ defmodule MurkyWeb.ViewLive do
 
   def buttons() do
     [
-      %MenuEntry{name: "Edit", action: "edit", prominent: true, icon: "edit-icon.svg"},
+      %MenuEntry{name: "Edit", action: "edit", prominent: true, icon: "edit"},
     ]
   end
 

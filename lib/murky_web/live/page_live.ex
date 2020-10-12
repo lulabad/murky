@@ -81,7 +81,7 @@ defmodule MurkyWeb.PageLive do
     <div id="page_live" class="flex flex-col">
       <div class="mx-2 mb-4 mt-2 flex h-8">
         <div class="flex-grow"></div>
-        <%= live_component @socket, Component.Menu, entries: [%MenuEntry{name: "Add new file", action: "new_show", prominent: true, icon: "add_file.svg"},], first_rounded: true %>
+        <%= live_component @socket, Component.Menu, entries: [%MenuEntry{name: "Add new file", action: "new_show", prominent: true, icon: "add_file"},], first_rounded: true %>
         </div>
       <div class="index-list">
         <ul class="flex flex-wrap list-none">
