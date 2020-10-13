@@ -14,7 +14,7 @@ defmodule MurkyWeb.Component.Menu do
               class="prominent hover:shadow text-primary-200 px-2  border-primary-200 hover:bg-primary-200 hover:text-secondary-500 flex <%= if @first_rounded do %> first:rounded-l-lg <% end %><%= if hide_three_dots do %> last:rounded-r-lg <% else %> border-r <% end %>"
               <%= for attr <- entry.attributes do %><%= Enum.at(attr,0) %>="<%= Enum.at(attr,1) %>"<% end %>
             >
-              <div class="flex p-1 w-6">
+              <div class="flex p-1 w-6 self-center">
                 <%= if entry.icon do %>
                   <%= icon_tag(@socket, entry.icon, class: "w-6 h-6 self-center menu-entry-primary-fill") %>
                 <% end %>
