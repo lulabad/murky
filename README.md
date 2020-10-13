@@ -1,3 +1,5 @@
+![murky](https://github.com/lulabad/murky/blob/master/assets/static/images/murky.png)
+
 # Murky - the markdown experience
 
 `Murky` is a simple Markdown wiki written in Elixir an use Phoenix LiveView.
