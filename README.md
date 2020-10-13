@@ -1,10 +1,9 @@
-![murky](https://github.com/lulabad/murky/blob/better_readme/assets/static/images/murky.png)
+![murky](https://github.com/lulabad/murky/blob/better_readme/assets/static/images/murky.png) 
 
-# Murky - the markdown experience
 
-`Murky` is a simple Markdown wiki written in Elixir an use Phoenix LiveView.
+`Murky` is a simple Markdown wiki written in Elixir.
 
-The [Monaco Editor](https://microsoft.github.io/monaco-editor/) is integrated for better writing experience. It has also a live preview of the rendered markdown.
+It use the [Phoenix Live View](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html) for live preview of the rendered markdown. The [Monaco Editor](https://microsoft.github.io/monaco-editor/) is integrated for better writing experience.
 
 ## Usage
 
