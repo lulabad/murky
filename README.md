@@ -1,8 +1,9 @@
-# Murky - the markdown experience
+![murky](https://github.com/lulabad/murky/blob/master/assets/static/images/murky.png) 
 
-`Murky` is a simple Markdown wiki written in Elixir an use Phoenix LiveView.
 
-The [Monaco Editor](https://microsoft.github.io/monaco-editor/) is integrated for better writing experience. It has also a live preview of the rendered markdown.
+# `Murky` is a file based Markdown wiki written in Elixir.
+
+It use the [Phoenix Live View](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html) for live preview of the rendered markdown. The [Monaco Editor](https://microsoft.github.io/monaco-editor/) is integrated for better writing experience.
 
 ## Usage
 
