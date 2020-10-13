@@ -1,4 +1,4 @@
-![murky](https://github.com/lulabad/murky/blob/master/assets/static/images/murky.png)
+![murky](https://github.com/lulabad/murky/blob/better_readme/assets/static/images/murky.png)
 
 # Murky - the markdown experience
 
