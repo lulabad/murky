@@ -13,9 +13,7 @@ module.exports = (env, options) => {
         optimization: {
             minimizer: [
                 new TerserPlugin({
-                    cache: true,
                     parallel: true,
-                    sourceMap: devMode,
                 }),
                 new OptimizeCSSAssetsPlugin({}),
             ],
@@ -30,8 +28,7 @@ module.exports = (env, options) => {
         },
         devtool: devMode ? "source-map" : undefined,
         module: {
-            rules: [
-                {
+            rules: [{
                     test: /\.js$/,
                     exclude: /node_modules/,
                     use: {
@@ -56,12 +53,12 @@ module.exports = (env, options) => {
             new MiniCssExtractPlugin({
                 filename: "../css/app.css",
             }),
-            new CopyWebpackPlugin([
-                {
+            new CopyWebpackPlugin({
+                "patterns": [{
                     from: "static/",
                     to: "../",
-                },
-            ]),
+                }, ]
+            }),
             new MonacoWebpackPlugin({
                 languages: ["markdown"],
             }),
