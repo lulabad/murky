@@ -97,6 +97,25 @@ defmodule MurkyWeb.PageLiveTest do
            |> Enum.count() == 1
   end
 
+  test "save new file by pressing enter", %{conn: conn} do
+    {:ok, view, _disconnected_html} = live(conn, "/")
+
+    assert view
+           |> element("button[phx-click='new_show']")
+           |> render_click()
+
+    view
+    |> element("input")
+    |> render_keyup(%{key: "d", value: "blub"})
+
+    assert view
+           |> element("input")
+           |> render_keyup(%{key: "Enter"})
+           |> Floki.parse_document!()
+           |> Floki.find("li")
+           |> Enum.count() == 1
+  end
+
   test "delete a file", %{conn: conn} do
     Data.create_file("first_file")
     {:ok, view, _disconnected_html} = live(conn, "/")
@@ -135,7 +154,9 @@ defmodule MurkyWeb.PageLiveTest do
     {:ok, view, _disconnected_html} = live(conn, "/")
 
     view
-    |> element("button[phx-click='edit-file'][phx-value-filename='first_file'][class*='prominent']")
+    |> element(
+      "button[phx-click='edit-file'][phx-value-filename='first_file'][class*='prominent']"
+    )
     |> render_click()
 
     assert_redirect(view, Routes.live_path(conn, MurkyWeb.EditLive, file: "first_file"))
