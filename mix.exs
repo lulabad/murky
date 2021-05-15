@@ -34,7 +34,7 @@ defmodule Murky.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.5.1"},
-      {:phoenix_live_view, "~> 0.15.0"},
+      {:phoenix_live_view, "~> 0.15.5"},
       {:floki, ">= 0.0.0", only: :test},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -45,8 +45,7 @@ defmodule Murky.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:earmark, "~> 1.4"},
-      {:zarex, "~> 1.0"},
-      {:phoenix_live_view_dropzone, "~> 0.0.7"}
+      {:zarex, "~> 1.0"}
     ]
   end
 
