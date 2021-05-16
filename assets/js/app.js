@@ -43,6 +43,12 @@ Hooks.MonacoEditor = {
     },
 };
 
+Hooks.Preview = {
+    updated() {
+        Prism.highlightAll();
+    }
+}
+
 const dropTarget = document.querySelector("#drop-target");
 dropTarget?.addEventListener("dragover", dragOver);
 dropTarget?.addEventListener("dragleave", dragLeave);
@@ -61,6 +67,7 @@ function cancelDefault(e) {
     e.stopPropagation();
     return false;
 }
+
 
 let csrfToken = document
     .querySelector("meta[name='csrf-token']")

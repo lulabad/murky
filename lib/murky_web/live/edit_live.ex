@@ -30,7 +30,7 @@ defmodule MurkyWeb.EditLive do
   @impl true
   def handle_event("update", value, socket) do
     raw_md = Map.get(value, "value")
-    md = Earmark.as_html!(raw_md)
+    md = Data.as_html(raw_md)
     {:noreply, assign(socket, raw_md_new: raw_md, md: md)}
   end
 
