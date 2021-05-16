@@ -43,7 +43,7 @@ Hooks.MonacoEditor = {
     },
 };
 
-Hooks.Preview = {
+Hooks.MarkdownPreview = {
     updated() {
         Prism.highlightAll();
     }
