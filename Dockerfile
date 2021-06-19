@@ -22,6 +22,7 @@ RUN mix do deps.get, deps.compile
 COPY assets/package.json assets/package-lock.json ./assets/
 COPY deps/phoenix /node_modules/phoenix
 COPY deps/phoenix_html /node_modules/phoenix_html
+COPY deps/phoenix_live_view /node_modules/phoenix_live_view
 
 RUN npm --prefix ./assets ci --progress=false --no-audit --loglevel=error
 

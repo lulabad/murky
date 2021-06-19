@@ -1,7 +1,6 @@
 defmodule MurkyWeb.EditLive do
   use MurkyWeb, :live_view
   alias Murky.Data
-  alias MurkyWeb.Router.Helpers, as: Routes
   alias MurkyWeb.Component
   alias Murky.MenuEntry
 
@@ -19,6 +18,11 @@ defmodule MurkyWeb.EditLive do
       |> assign(raw_md_new: raw_md)
       |> assign(filename: filename)
       |> assign(file_data: %{id: "", url: ""})
+      |> allow_upload(:attachements,
+        accept: ~w(.jpg .jpeg .png),
+        progress: &handle_progress/3,
+        auto_upload: true
+      )
 
     {:ok, socket}
   end
@@ -26,7 +30,7 @@ defmodule MurkyWeb.EditLive do
   @impl true
   def handle_event("update", value, socket) do
     raw_md = Map.get(value, "value")
-    md = Earmark.as_html!(raw_md)
+    md = Data.as_html(raw_md)
     {:noreply, assign(socket, raw_md_new: raw_md, md: md)}
   end
 
@@ -35,56 +39,33 @@ defmodule MurkyWeb.EditLive do
     {:noreply, socket}
   end
 
-  def handle_event("phx-dropzone", [event, payload], socket) do
-    socket |> handle_drop(event, payload) |> drop_replay
-  end
-
-  defp drop_replay(socket = %{assigns: %{filetarget: filetarget, file_data: %{id: id}}}) do
-    replay_message = "![" <> id <> "](" <> filetarget <> ")"
-
-    socket = %{
-      socket
-      | assigns: Map.delete(socket.assigns, :filetarget),
-        changed: Map.put_new(socket.changed, :filetarget, true)
-    }
-
-    {:noreply, push_event(socket, "uploaded", %{image_link_md: replay_message})}
-  end
-
-  defp drop_replay(socket) do
+  @impl Phoenix.LiveView
+  def handle_event("validate", _params, socket) do
     {:noreply, socket}
   end
 
-  defp handle_drop(socket, "generate-url", payload) do
-    id = Map.get(payload, "id")
+  defp handle_progress(:attachements, entry, socket) do
+    if entry.done? do
+      uploaded_file =
+        consume_uploaded_entry(socket, entry, fn %{path: path} ->
+          file_extension = Path.extname(entry.client_name)
+          new_filename = Path.basename(path) <> file_extension
+          dest = Data.get_storage_path() |> Path.join(new_filename)
+          File.cp!(path, dest)
+          new_filename
+        end)
 
-    assign(socket,
-      file_data: %{
-        id: id,
-        url: Routes.upload_path(MurkyWeb.Endpoint, :update, id)
-      }
-    )
-  end
+      replay_message = "![" <> uploaded_file <> "](/files/" <> uploaded_file <> ")"
 
-  defp handle_drop(socket, "file-status", %{"status" => "Done", "id" => id, "name" => name}) do
-    ext = Path.extname(name)
-    path = &(Data.get_storage_path() |> Path.join(&1))
-
-    source = path.(id)
-    new_name = id <> ext
-    target = path.(new_name)
-
-    File.rename!(source, target)
-    assign(socket, filetarget: "/files/" <> new_name)
-  end
-
-  defp handle_drop(socket, "file-status", _) do
-    socket
+      {:noreply, push_event(socket, "uploaded", %{image_link_md: replay_message})}
+    else
+      {:noreply, socket}
+    end
   end
 
   defp buttons() do
     [
-      %MenuEntry{name: "Save", action: "save", prominent: true, icon: "edit"},
+      %MenuEntry{name: "Save", action: "save", prominent: true, icon: "edit"}
     ]
   end
 
@@ -95,7 +76,7 @@ defmodule MurkyWeb.EditLive do
       <div class="flex mb-10 mt-4 ">
         <div class="mr-6 text-xl border-b-4 border-primary-200 px-2"><%= @filename %></div>
         <div class="flex-grow"></div>
-        <%= live_component @socket, PhoenixLiveViewDropzone, file_data: @file_data %>
+        <%= live_component @socket, Component.FileUpload, uploads: assigns.uploads %>
         <%= live_component @socket, Component.Menu, entries: buttons(), first_rounded: true %>
       </div>
       <div class="h-full relative">

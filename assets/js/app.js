@@ -21,9 +21,6 @@ import NProgress from "nprogress";
 import {
     LiveSocket
 } from "phoenix_live_view";
-import {
-    PhoenixLiveViewDropzone
-} from "phoenix_live_view_drop_zone";
 
 const Hooks = {};
 Hooks.MonacoEditor = {
@@ -46,7 +43,30 @@ Hooks.MonacoEditor = {
     },
 };
 
-Hooks.PhoenixLiveViewDropzone = new PhoenixLiveViewDropzone();
+Hooks.MarkdownPreview = {
+    updated() {
+        Prism.highlightAll();
+    }
+}
+
+const dropTarget = document.querySelector("#drop-target");
+dropTarget?.addEventListener("dragover", dragOver);
+dropTarget?.addEventListener("dragleave", dragLeave);
+
+
+function dragOver(e) {
+    cancelDefault(e);
+    this.classList.add("drag-hovering");
+}
+
+function dragLeave(e) {
+    this.classList.remove("drag-hovering");
+}
+function cancelDefault(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+}
 
 
 let csrfToken = document

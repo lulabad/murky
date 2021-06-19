@@ -22,32 +22,25 @@ div.phx-connected {
     width: 100%;
 }
 
-#phoenix-live-view-dropzone {
-    display: flex;
-    align-items: stretch;
-    margin: 0 0.2rem;
-}
-
-#phoenix-live-view-dropzone>div {
-    border: 2px dashed #0F4141;
-    border-radius: .25rem;
+#drop-target {
+    border: 2px dashed #0f4141;
+    border-radius: 0.25rem;
     font-size: 1rem;
     padding: 0 1rem;
-    display: flex;
 }
 
-#phoenix-live-view-dropzone button {
-    color: #0F4141;
-}
-
-#phoenix-live-view-dropzone .drag-hovering {
-    background-color: rgba(115, 149, 149, .5);
+#drop-target.drag-hovering {
+    background-color: rgba(115, 149, 149, 0.5);
     border-style: solid;
 }
 
-#phoenix-live-view-dropzone>div:hover {
-    background-color: rgba(115, 149, 149, .5);
+#drop-target:hover {
+    background-color: rgba(115, 149, 149, 0.5);
     border-style: solid;
+}
+
+#upload-form {
+    display: none;
 }
 
 /* remove the strange shadow from 'coy' theme */
@@ -67,7 +60,7 @@ button svg {
 }
 
 button:hover svg {
-    fill: #29395E;
+    fill: #29395e;
 }
 
 .menu-entry-primary-fill svg {

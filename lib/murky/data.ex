@@ -2,6 +2,11 @@ defmodule Murky.Data do
   def get_md(filename) do
     filename
     |> get_raw_md()
+    |> as_html()
+  end
+
+  def as_html(raw_md) do
+    raw_md
     |> Earmark.as_html!(%Earmark.Options{code_class_prefix: "lang- language-"})
   end
 
